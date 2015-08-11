@@ -3,6 +3,7 @@ if ENV['CODECLIMATE_REPO_TOKEN']
   CodeClimate::TestReporter.start
 end
 
+require 'active_support/all'
 require 'timecop'
 require 'itunes_receipt_mock'
 

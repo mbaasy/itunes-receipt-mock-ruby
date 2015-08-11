@@ -1,4 +1,4 @@
 .DS_Store
-.yarddoc
+.yardoc
 *.gem
 coverage

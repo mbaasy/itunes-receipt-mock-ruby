@@ -13,13 +13,12 @@ Gem::Specification.new do |gem|
   gem.homepage = 'https://github.com/mbaasy/itunes-recept-ruby-mock'
   gem.require_paths = ['lib']
 
-  gem.add_dependency 'rake'
-  gem.add_dependency 'activesupport', '~> 4.2'
-  gem.add_development_dependency 'rspec', '~> 3.3'
-  gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
-  gem.add_development_dependency 'timecop', '~> 0.8'
-  gem.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
+  gem.add_development_dependency 'activesupport', '~> 4.2.0'
+  gem.add_development_dependency 'rspec', '~> 3.3.0'
+  gem.add_development_dependency 'rubygems-tasks', '~> 0.2.0'
+  gem.add_development_dependency 'timecop', '~> 0.8.0'
+  gem.add_development_dependency 'codeclimate-test-reporter', '~> 0.4.0r'
 
   # ensure the gem is built out of versioned files
-  gem.files = Dir['Rakefile', '{bin,lib,man,test,spec}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
+  gem.files = Dir['{bin,lib,man,test,spec}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
 end
