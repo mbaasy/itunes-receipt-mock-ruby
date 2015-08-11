@@ -6,11 +6,11 @@ module ItunesReceiptMock
 
     attr_reader :receipt
 
-    def initialize(options={})
+    def initialize(options = {})
       @receipt = Receipt.new(options)
     end
 
-    def result(options={})
+    def result(options = {})
       status = options[:status] || 0
       if status == 0
         {
@@ -25,6 +25,14 @@ module ItunesReceiptMock
           'status' => status
         }
       end
+    end
+
+    def add_purchase(options = {})
+      receipt.add_purchase(options)
+    end
+
+    def add_subscription(options = {})
+      receipt.add_subscription(options)
     end
   end
 end
