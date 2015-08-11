@@ -65,9 +65,11 @@ describe ItunesReceiptMock::Receipt do
       let(:options) { { :product_id => 'whatever' } }
 
       it 'creates an instance of Purchase' do
-        expect(subject).to be_a(Array)
-        expect(subject.length).to eq(1)
-        expect(subject.first).to be_a(ItunesReceiptMock::Purchase)
+        expect(subject).to be_a(ItunesReceiptMock::Purchase)
+      end
+
+      it 'adds it to the purchases array' do
+        expect(receipt.purchases).to include(subject)
       end
     end
 
@@ -89,9 +91,11 @@ describe ItunesReceiptMock::Receipt do
       let(:options) { { :product_id => 'whatever', expires_date: 1.month.from_now } }
 
       it 'creates an instance of Subscription' do
-        expect(subject).to be_a(Array)
-        expect(subject.length).to eq(1)
-        expect(subject.first).to be_a(ItunesReceiptMock::Subscription)
+        expect(subject).to be_a(ItunesReceiptMock::Subscription)
+      end
+
+      it 'adds it to the purchases array' do
+        expect(receipt.purchases).to include(subject)
       end
     end
 
