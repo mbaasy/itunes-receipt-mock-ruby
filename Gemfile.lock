@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    itunes-receipt-ruby-mock (0.0.1)
+    itunes-receipt-ruby-mock (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -62,11 +62,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 4.2.0)
-  codeclimate-test-reporter (~> 0.4.0)
+  activesupport (~> 4.2)
+  codeclimate-test-reporter (~> 0.4)
   itunes-receipt-ruby-mock!
-  rake (~> 10.4.0)
-  rspec (~> 3.3.0)
-  rubocop (~> 0.33.0)
-  rubygems-tasks (~> 0.2.0)
-  timecop (~> 0.8.0)
+  rake (~> 10.4)
+  rspec (~> 3.3)
+  rubocop (~> 0.33)
+  rubygems-tasks (~> 0.2)
+  timecop (~> 0.8)
