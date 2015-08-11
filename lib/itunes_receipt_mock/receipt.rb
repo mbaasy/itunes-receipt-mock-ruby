@@ -41,11 +41,15 @@ module ItunesReceiptMock
     end
 
     def add_purchase(options={})
-      @purchases << Purchase.new(options)
+      purchase = Purchase.new(options)
+      @purchases << purchase
+      purchase
     end
 
     def add_subscription(options={})
-      @purchases << Subscription.new(options)
+      purchase = Subscription.new(options)
+      @purchases << purchase
+      purchase
     end
   end
 end
