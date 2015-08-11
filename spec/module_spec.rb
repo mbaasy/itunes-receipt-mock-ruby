@@ -5,10 +5,10 @@ describe ItunesReceiptMock do
     subject { described_class.new(options) }
 
     context 'with minimal options' do
-      let(:options) { { :bundle_id => 'foobar' } }
+      let(:options) { { bundle_id: 'foobar' } }
 
-      it 'creates an instance of Base' do
-        expect(subject).to be_a(described_class::Base)
+      it 'creates an instance of Validation' do
+        expect(subject).to be_a(described_class::Validation)
       end
     end
 
@@ -16,7 +16,10 @@ describe ItunesReceiptMock do
       let(:options) { {} }
 
       it 'raises an MissingArgumentError' do
-        expect {subject}.to raise_error(described_class::MissingArgumentError)
+        expect { subject }.to raise_error(
+          described_class::MissingArgumentError,
+          'bundle_id is required'
+        )
       end
     end
   end

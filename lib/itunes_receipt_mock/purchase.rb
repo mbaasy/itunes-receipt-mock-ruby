@@ -1,23 +1,31 @@
+##
+# ItunesReceiptMock
 module ItunesReceiptMock
+  ##
+  # ItunesReceiptMock::Purchase
   class Purchase
     include ItunesReceiptMock::Mixins
 
-    attr_reader :quantity, :product_id, :transaction_id,
-                :original_transaction_id, :purchase_date,
-                :original_purchase_date
+    attr_accessor :quantity, :product_id, :transaction_id,
+                  :original_transaction_id, :purchase_date,
+                  :original_purchase_date
 
-    def initialize(options={})
-      @product_id = options[:product_id]
-      @quantity = options[:quantity] || 1
-      @transaction_id = options[:transaction_id] || rand(1_000_000_000..9_999_999_999).to_s
-      @original_transaction_id = options[:original_transaction_id] || @transaction_id
-      @purchase_date = options[:purchase_date] || Time.now
-      @original_purchase_date = options[:original_purchase_date] || @purchase_date
-
-      fail ItunesReceiptMock::MissingArgumentError, 'product_id is required' unless @product_id
+    def initialize(options = {})
+      @product_id = options.fetch :product_id, nil
+      fail ItunesReceiptMock::MissingArgumentError,
+           'product_id is required' unless @product_id
+      @quantity = options.fetch :quantity, 1
+      @transaction_id =
+        options.fetch :transaction_id,
+                      ItunesReceiptMock.next_transaction_id.to_s
+      @original_transaction_id =
+        options.fetch :original_transaction_id, @transaction_id
+      @purchase_date = options.fetch :purchase_date, Time.now
+      @original_purchase_date =
+        options.fetch :original_purchase_date, @purchase_date
     end
 
-    def result
+    def result(_options = {})
       {
         'quantity' => quantity,
         'product_id' => product_id,

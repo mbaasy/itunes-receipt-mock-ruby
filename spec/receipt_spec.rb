@@ -13,7 +13,7 @@ describe ItunesReceiptMock::Receipt do
     subject { described_class.new(options) }
 
     context 'with minimal options' do
-      let(:options) { { :bundle_id => 'foobar' } }
+      let(:options) { { bundle_id: 'foobar' } }
 
       it 'sets "bundle_id" to the option value' do
         expect(subject.bundle_id).to eq(options[:bundle_id])
@@ -33,14 +33,14 @@ describe ItunesReceiptMock::Receipt do
     context 'when options are complete' do
       let(:options) do
         {
-          :bundle_id => 'foobar',
-          :environment => 'Sandbox',
-          :adam_id => rand(1..5),
-          :app_item_id => rand(1..5),
-          :application_version => rand(1..5).to_s,
-          :download_id => rand(1..5),
-          :version_external_identifier => rand(1..5),
-          :original_purchase_date => Time.new(2015, 06, 20, 8, 16, 32)
+          bundle_id: 'foobar',
+          environment: 'Sandbox',
+          adam_id: rand(1..5),
+          app_item_id: rand(1..5),
+          application_version: rand(1..5).to_s,
+          download_id: rand(1..5),
+          version_external_identifier: rand(1..5),
+          original_purchase_date: Time.new(2015, 06, 20, 8, 16, 32)
         }
       end
 
@@ -50,67 +50,82 @@ describe ItunesReceiptMock::Receipt do
         expect(subject.app_item_id).to eq(options[:app_item_id])
         expect(subject.application_version).to eq(options[:application_version])
         expect(subject.download_id).to eq(options[:download_id])
-        expect(subject.version_external_identifier).to eq(options[:version_external_identifier])
-        expect(subject.original_purchase_date).to eq(options[:original_purchase_date])
+        expect(subject.version_external_identifier).to eq(
+          options[:version_external_identifier]
+        )
+        expect(subject.original_purchase_date).to eq(
+          options[:original_purchase_date]
+        )
       end
     end
   end
 
   describe '#add_purchase' do
-    let(:receipt) { described_class.new(:bundle_id => 'foobar') }
+    let(:receipt) { described_class.new(bundle_id: 'foobar') }
 
     subject { receipt.add_purchase(options) }
 
     context 'with minimal options' do
-      let(:options) { { :product_id => 'whatever' } }
+      let(:options) { { product_id: 'whatever' } }
 
       it 'creates an instance of Purchase' do
         expect(subject).to be_a(ItunesReceiptMock::Purchase)
       end
 
-      it 'adds it to the purchases array' do
-        expect(receipt.purchases).to include(subject)
+      it 'adds the purchase to the #in_app object' do
+        expect(receipt.in_app[subject.transaction_id]).to eq(subject)
       end
     end
 
     context 'when product_id is not present' do
-      let(:options) { { } }
+      let(:options) { {} }
 
       it 'raises an MissingArgumentError' do
-        expect {subject}.to raise_error(ItunesReceiptMock::MissingArgumentError)
+        expect { subject }.to raise_error(
+          ItunesReceiptMock::MissingArgumentError,
+          'product_id is required'
+        )
       end
     end
   end
 
   describe '#add_subscription' do
-    let(:receipt) { described_class.new(:bundle_id => 'foobar') }
+    let(:receipt) { described_class.new(bundle_id: 'foobar') }
 
     subject { receipt.add_subscription(options) }
 
     context 'with minimal options' do
-      let(:options) { { :product_id => 'whatever', expires_date: 1.month.from_now } }
+      let(:options) do
+        {
+          product_id: 'whatever',
+          expires_date: 1.month.from_now
+        }
+      end
 
       it 'creates an instance of Subscription' do
         expect(subject).to be_a(ItunesReceiptMock::Subscription)
       end
 
-      it 'adds it to the purchases array' do
-        expect(receipt.purchases).to include(subject)
+      it 'adds the subscription to the #in_app object' do
+        expect(receipt.in_app[subject.transaction_id]).to eq(subject)
       end
     end
 
     context 'when expires_date is not present' do
-      let(:options) { { :product_id => 'whatever' } }
+      let(:options) { { product_id: 'whatever' } }
 
       it 'raises an MissingArgumentError' do
-        expect {subject}.to raise_error(ItunesReceiptMock::MissingArgumentError)
+        expect { subject }.to raise_error(
+          ItunesReceiptMock::MissingArgumentError,
+          'expires_date is required'
+        )
       end
     end
   end
 
   describe '#result' do
-    let(:receipt) { described_class.new(:bundle_id => 'foobar') }
-    let(:options) { { } }
+    let(:receipt) { described_class.new(bundle_id: 'foobar') }
+    let(:options) { {} }
 
     subject { receipt.result(options) }
 
@@ -121,18 +136,28 @@ describe ItunesReceiptMock::Receipt do
       expect(subject['bundle_id']).to eq(receipt.bundle_id)
       expect(subject['application_version']).to eq(receipt.application_version)
       expect(subject['download_id']).to eq(receipt.download_id)
-      expect(subject['version_external_identifier']).to eq(receipt.version_external_identifier)
-      expect(subject['original_application_version']).to eq(receipt.original_application_version)
+      expect(subject['version_external_identifier']).to eq(
+        receipt.version_external_identifier
+      )
+      expect(subject['original_application_version']).to eq(
+        receipt.original_application_version
+      )
       expect(subject['in_app']).to be_a(Array)
-      expect(subject['request_date']).to eq(Time.now.utc.strftime('%F %T') + ' Etc/GMT')
-      expect(subject['original_purchase_date']).to eq(receipt.original_purchase_date.utc.strftime('%F %T') + ' Etc/GMT')
+      expect(subject['request_date']).to eq(
+        Time.now.utc.strftime('%F %T') + ' Etc/GMT'
+      )
+      expect(subject['original_purchase_date']).to eq(
+        receipt.original_purchase_date.utc.strftime('%F %T') + ' Etc/GMT'
+      )
     end
 
     context 'when "request_date" is in options' do
-      let(:options) { { :request_date => rand(1..5).hours.ago } }
+      let(:options) { { request_date: rand(1..5).hours.ago } }
 
       it 'returns the request_date as specified' do
-        expect(subject['request_date']).to eq(options[:request_date].utc.strftime('%F %T') + ' Etc/GMT')
+        expect(subject['request_date']).to eq(
+          options[:request_date].utc.strftime('%F %T') + ' Etc/GMT'
+        )
       end
     end
   end

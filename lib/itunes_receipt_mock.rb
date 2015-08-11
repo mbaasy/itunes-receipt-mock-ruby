@@ -1,14 +1,29 @@
-require 'active_support/all'
+require 'base64'
 require 'itunes_receipt_mock/mixins'
-require 'itunes_receipt_mock/base'
+require 'itunes_receipt_mock/validation'
 require 'itunes_receipt_mock/receipt'
 require 'itunes_receipt_mock/purchase'
 require 'itunes_receipt_mock/subscription'
 
+##
+# ItunesReceiptMock
 module ItunesReceiptMock
   class MissingArgumentError < StandardError; end
 
-  def self.new(options={})
-    Base.new(options)
+  @transaction_id = 1_000_000_000
+
+  ##
+  # Creates a new iTunes receipt
+  #
+  # Returns: rdoc-ref:ItunesReceiptMock::Validation
+  #
+  # Params:
+  # +options+:: rdoc-ref:ItunesReceiptMock
+  def self.new(options = {})
+    Validation.new(options)
+  end
+
+  def self.next_transaction_id
+    @transaction_id += 1
   end
 end

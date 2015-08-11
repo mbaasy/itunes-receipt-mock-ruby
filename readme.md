@@ -1,6 +1,9 @@
 # ITunes Receipt Ruby Mock
 
 [![Build Status](https://travis-ci.org/mbaasy/itunes-receipt-ruby-mock.svg?branch=master)](https://travis-ci.org/mbaasy/itunes-receipt-ruby-mock)
+[![Code Climate](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock/badges/gpa.svg)](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock)
+[![Test Coverage](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock/badges/coverage.svg)](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock/coverage)
+[![Dependency Status](https://gemnasium.com/mbaasy/itunes-receipt-ruby-mock.svg)](https://gemnasium.com/mbaasy/itunes-receipt-ruby-mock)
 
 ## Installation
 
@@ -54,13 +57,19 @@ result = receipt.result.as_json
       "original_purchase_date_pst": "2015-08-11 02:09:41 America/Los_Angeles"
     }],
     "request_date": "2015-08-11 10:11:34 Etc/GMT",
-    "request_date_ms":1439287894257,
+    "request_date_ms": 1439287894257,
     "request_date_pst": "2015-08-11 02:11:34 America/Los_Angeles",
     "original_purchase_date": "2015-08-11 10:09:41 Etc/GMT",
-    "original_purchase_date_ms":1439287781051,
+    "original_purchase_date_ms": 1439287781051,
     "original_purchase_date_pst": "2015-08-11 02:09:41 America/Los_Angeles"
   },
   "latest_receipt_info": [],
   "latest_receipt": ""
 }
 ```
+
+## Contributing
+
+1. Read our [Code of Conduct](/CODE_OF_CONDUCT.md).
+1. Fork, clone, change, test and document.
+1. Create a PR with a clear description of your changes.
