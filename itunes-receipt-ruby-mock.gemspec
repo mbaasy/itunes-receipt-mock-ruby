@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 3.3'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
   gem.add_development_dependency 'timecop', '~> 0.8'
+  gem.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
 
   # ensure the gem is built out of versioned files
   gem.files = Dir['Rakefile', '{bin,lib,man,test,spec}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
