@@ -1,9 +1,9 @@
 # iTunes Receipt Mock
 
-[![Build Status](https://travis-ci.org/mbaasy/itunes-receipt-ruby-mock.svg?branch=master)](https://travis-ci.org/mbaasy/itunes-receipt-ruby-mock)
-[![Code Climate](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock/badges/gpa.svg)](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock)
-[![Test Coverage](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock/badges/coverage.svg)](https://codeclimate.com/github/mbaasy/itunes-receipt-ruby-mock/coverage)
-[![Dependency Status](https://gemnasium.com/mbaasy/itunes-receipt-ruby-mock.svg)](https://gemnasium.com/mbaasy/itunes-receipt-ruby-mock)
+[![Build Status](https://travis-ci.org/mbaasy/itunes-receipt-mock-ruby.svg?branch=master)](https://travis-ci.org/mbaasy/itunes-receipt-mock-ruby)
+[![Code Climate](https://codeclimate.com/github/mbaasy/itunes-receipt-mock-ruby/badges/gpa.svg)](https://codeclimate.com/github/mbaasy/itunes-receipt-mock-ruby)
+[![Test Coverage](https://codeclimate.com/github/mbaasy/itunes-receipt-mock-ruby/badges/coverage.svg)](https://codeclimate.com/github/mbaasy/itunes-receipt-mock-ruby/coverage)
+[![Dependency Status](https://gemnasium.com/mbaasy/itunes-receipt-mock-ruby.svg)](https://gemnasium.com/mbaasy/itunes-receipt-mock-ruby)
 
 ## Overview
 
