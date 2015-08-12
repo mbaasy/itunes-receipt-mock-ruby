@@ -21,11 +21,11 @@ describe ItunesReceiptMock::Receipt do
 
       it 'defaults everything else' do
         expect(subject.environment).to eq('Production')
-        expect(subject.adam_id).to eq(0)
-        expect(subject.app_item_id).to eq(0)
-        expect(subject.application_version).to eq('1')
-        expect(subject.download_id).to eq(0)
-        expect(subject.version_external_identifier).to eq(0)
+        expect(subject.adam_id).to eq(1)
+        expect(subject.app_item_id).to eq(1)
+        expect(subject.application_version).to eq(1)
+        expect(subject.download_id).to eq(1)
+        expect(subject.version_external_identifier).to eq(1)
         expect(subject.original_purchase_date).to eq(Time.now)
       end
     end
@@ -134,21 +134,19 @@ describe ItunesReceiptMock::Receipt do
       expect(subject['adam_id']).to eq(receipt.adam_id)
       expect(subject['app_item_id']).to eq(receipt.app_item_id)
       expect(subject['bundle_id']).to eq(receipt.bundle_id)
-      expect(subject['application_version']).to eq(receipt.application_version)
+      expect(subject['application_version'])
+        .to eq(receipt.application_version.to_s)
       expect(subject['download_id']).to eq(receipt.download_id)
-      expect(subject['version_external_identifier']).to eq(
-        receipt.version_external_identifier
-      )
-      expect(subject['original_application_version']).to eq(
-        receipt.original_application_version
-      )
+      expect(subject['version_external_identifier'])
+        .to eq(receipt.version_external_identifier)
+      expect(subject['original_application_version'])
+        .to eq(format('%.1f', receipt.original_application_version))
       expect(subject['in_app']).to be_a(Array)
-      expect(subject['request_date']).to eq(
-        Time.now.utc.strftime('%F %T') + ' Etc/GMT'
-      )
-      expect(subject['original_purchase_date']).to eq(
-        receipt.original_purchase_date.utc.strftime('%F %T') + ' Etc/GMT'
-      )
+      expect(subject['request_date'])
+        .to eq(Time.now.utc.strftime('%F %T') + ' Etc/GMT')
+      expect(subject['original_purchase_date'])
+        .to eq(receipt.original_purchase_date.utc.strftime('%F %T') +
+               ' Etc/GMT')
     end
 
     context 'when "request_date" is in options' do

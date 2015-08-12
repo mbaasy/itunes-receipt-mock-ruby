@@ -4,14 +4,14 @@ require File.expand_path('../lib/itunes_receipt_mock/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name = 'itunes-receipt-mock'
+  gem.required_ruby_version = '>= 1.9.2'
   gem.version = ItunesReceiptMock::VERSION
   gem.summary = 'Mock iTunes Connect receipts'
-  gem.description = 'Mock iTunes receipt validation responses for testing ' \
-                    'purposes'
+  gem.description = 'Mock iTunes receipt validation responses for testing'
   gem.license = 'MIT'
   gem.authors = ['mbaasy.com']
   gem.email = 'hello@mbaasy.com'
-  gem.homepage = 'https://github.com/mbaasy/itunes-recept-mock-ruby'
+  gem.homepage = 'https://github.com/mbaasy/itunes-receipt-mock-ruby'
   gem.require_paths = ['lib']
 
   gem.add_development_dependency 'rake', '~> 10.4'

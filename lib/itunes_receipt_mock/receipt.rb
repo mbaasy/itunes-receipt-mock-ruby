@@ -6,6 +6,18 @@ module ItunesReceiptMock
   class Receipt
     include ItunesReceiptMock::Mixins
 
+    RECEIPT_DEFAULTS = {
+      bundle_id: nil,
+      environment: 'Production',
+      adam_id: 1,
+      app_item_id: 1,
+      application_version: 1,
+      download_id: 1,
+      version_external_identifier: 1,
+      original_purchase_date: proc { Time.now },
+      original_application_version: 1
+    }
+
     attr_reader :in_app
     attr_accessor :environment, :adam_id, :app_item_id, :bundle_id,
                   :application_version, :download_id,
@@ -14,32 +26,22 @@ module ItunesReceiptMock
 
     def initialize(options = {})
       @in_app = {}
-      @bundle_id = options.fetch :bundle_id, nil
-      @environment = options.fetch :environment, 'Production'
-      @adam_id = options.fetch :adam_id, 0
-      @app_item_id = options.fetch :app_item_id, 0
-      @application_version = options.fetch :application_version, '1'
-      @download_id = options.fetch :download_id, 0
-      @version_external_identifier =
-        options.fetch :version_external_identifier, 0
-      @original_purchase_date = options.fetch :original_purchase_date, Time.now
-      @original_application_version =
-        options.fetch :original_application_version, 0
-
+      send_defaults(RECEIPT_DEFAULTS, options)
       fail MissingArgumentError, 'bundle_id is required' unless @bundle_id
     end
 
     def result(options = {})
-      request_date = options[:request_date] = Time.now
+      request_date = options.fetch :request_date, Time.now
       {
         'receipt_type' => environment,
-        'adam_id' => adam_id,
-        'app_item_id' => app_item_id,
+        'adam_id' => adam_id.to_i,
+        'app_item_id' => app_item_id.to_i,
         'bundle_id' => bundle_id,
-        'application_version' => application_version,
-        'download_id' => download_id,
-        'version_external_identifier' => version_external_identifier,
-        'original_application_version' => original_application_version,
+        'application_version' => application_version.to_s,
+        'download_id' => download_id.to_i,
+        'version_external_identifier' => version_external_identifier.to_i,
+        'original_application_version' =>
+          format('%.1f', original_application_version),
         'in_app' => in_app_result(options)
       }
         .merge(date_attrs('request', request_date))

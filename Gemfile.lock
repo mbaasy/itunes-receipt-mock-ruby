@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    itunes-receipt-ruby-mock (0.0.2)
+    itunes-receipt-mock (0.0.4)
 
 GEM
   remote: https://rubygems.org/
@@ -64,7 +64,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 4.2)
   codeclimate-test-reporter (~> 0.4)
-  itunes-receipt-ruby-mock!
+  itunes-receipt-mock!
   rake (~> 10.4)
   rspec (~> 3.3)
   rubocop (~> 0.33)

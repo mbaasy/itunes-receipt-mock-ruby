@@ -36,18 +36,19 @@ ItunesReceiptMock.new(options)
 | Name | Required | Type | Default | Description |
 | ---- | -------- | ---- | ------- | ----------- |
 | bundle_id | Yes | String | - | The app's bundle identifier |
-| adam_id | No | FixNum | 0 | The app's Adam identifier |
-| app_item_id | No | FixNum | 0 | A string that the App Store uses to uniquely identify the application that created the transaction |
-| application_version | No | String | "1" | The app's version number |
-| download_id | No | FixNum | 0 | The app's download identifier |
-| version_external_identifier | No | FixNum | 0 | An arbitrary number that uniquely identifies a revision of your application |
-| original_application_version | No | FixNum | "0" | The version of the app that was originally purchased |
+| adam_id | No | Fixnum | 1 | The app's Adam identifier |
+| app_item_id | No | Fixnum | 1 | A string that the App Store uses to uniquely identify the application that created the transaction |
+| application_version | No | Fixnum | 1 | The app's version number |
+| download_id | No | Fixnum | 1 | The app's download identifier |
+| version_external_identifier | No | Fixnum | 1 | An arbitrary number that uniquely identifies a revision of your application |
+| original_application_version | No | Fixnum | 1 | The version of the app that was originally purchased |
 | original_purchase_date | No | Time | Time.now | The original download date of the app |
 
 #### Example
 
 ```ruby
 validation = ItunesReceiptMock.new(bundle_id: 'com.example')
+validation.result
 ```
 
 ### Adding a purchase
@@ -61,17 +62,18 @@ validation.add_purchase(options)
 | Name | Required | Type | Default | Description |
 | ---- | -------- | ---- | ------- | ----------- |
 | product_id | Yes | String | - | In-app purchase product identifier |
-| quantity | No | FixNum | 1 | The number of items purchased |
-| transaction_id | No | String | `ItunesReceiptMock.next_transaction_id` | The transaction identifier of the item that was purchased |
-| original_transaction_id | No | String | Copied from `transaction_id` | For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier |
+| quantity | No | Fixnum | 1 | The number of items purchased |
+| transaction_id | No | Fixnum | Auto-increment | The transaction identifier of the item that was purchased |
+| original_transaction_id | No | String | Same as `transaction_id` | For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier |
 | purchase_date | No | Time | Time.now | The date and time that the item was purchased |
-| original_purchase_date | No | Time | Copied from `purchase_date` | For a transaction that restores a previous transaction, the date of the original transaction |
+| original_purchase_date | No | Time | Same as `purchase_date` | For a transaction that restores a previous transaction, the date of the original transaction |
 
 #### Example
 
 ```ruby
 validation = ItunesReceiptMock.new(bundle_id: 'com.example')
 purchase = validation.add_purchase(product_id: 'premium')
+validation.result
 ```
 
 ### Adding a subscription
@@ -92,13 +94,43 @@ validation.add_subscription(options)
 
 ```ruby
 validation = ItunesReceiptMock.new(bundle_id: 'com.example')
-subscription = validation.add_subscription(product_id: 'premium_1_month', expires_date: 1.month.from_now)
+subscription = validation.add_subscription(
+  product_id: 'premium_1_month',
+  expires_date: 1.month.from_now
+)
+validation.result
 ```
 
 ### Renewing a subscription
 
 ```ruby
 validation.renew_subscription(subscription, options)
+```
+
+#### Example
+
+```ruby
+validation = ItunesReceiptMock.new(bundle_id: 'com.example')
+subscription = validation.add_subscription(
+  product_id: 'premium_1_month',
+  purchase_date: 1.month.ago,
+  expires_date: Time.now
+)
+validation.renew_subscription(subscription, expires_date: 1.month.from_now)
+validation.result
+```
+
+### Accessing the result
+
+```ruby
+validation.result(options = {})
+```
+
+#### Example
+
+```ruby
+validation = ItunesReceiptMock.new(bundle_id: 'com.example')
+validation.result(request_date: 5.minutes.ago)
 ```
 
 ## Contributing
