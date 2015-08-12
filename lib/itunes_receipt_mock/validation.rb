@@ -53,7 +53,7 @@ module ItunesReceiptMock
         product_id: purchase.product_id,
         original_transaction_id: purchase.original_transaction_id,
         original_purchase_date: purchase.original_purchase_date,
-        weborder_line_item: purchase.weborder_line_item,
+        web_order_line_item_id: purchase.web_order_line_item_id,
         is_trial_period: purchase.is_trial_period
       }.merge(expires_date: expires_date).merge(options)
 

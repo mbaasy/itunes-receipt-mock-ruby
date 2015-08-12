@@ -6,7 +6,8 @@ Gem::Specification.new do |gem|
   gem.name = 'itunes-receipt-mock'
   gem.version = ItunesReceiptMock::VERSION
   gem.summary = 'Mock iTunes Connect receipts'
-  gem.description = 'Mock iTunes receipt validation responses for testing purposes'
+  gem.description = 'Mock iTunes receipt validation responses for testing ' \
+                    'purposes'
   gem.license = 'MIT'
   gem.authors = ['mbaasy.com']
   gem.email = 'hello@mbaasy.com'
