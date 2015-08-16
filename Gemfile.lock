@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    itunes-receipt-mock (0.0.4)
+    itunes-receipt-mock (0.0.5)
 
 GEM
   remote: https://rubygems.org/

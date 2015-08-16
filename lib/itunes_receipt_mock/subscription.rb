@@ -7,23 +7,34 @@ module ItunesReceiptMock
     SUBSCRIPTION_DEFAULTS = {
       expires_date: nil,
       web_order_line_item_id: proc do
-        ItunesReceiptMock.next_web_order_line_item_id
-      end,
-      is_trial_period: false
+        receipt.transactions.next_web_order_line_item_id
+      end
     }
 
-    attr_accessor :expires_date, :web_order_line_item_id, :is_trial_period
+    attr_accessor :expires_date, :web_order_line_item_id
 
-    def initialize(options = {})
+    def initialize(options)
       super
       send_defaults(SUBSCRIPTION_DEFAULTS, options)
       fail MissingArgumentError, 'expires_date is required' unless @expires_date
     end
 
-    def result(_options = {})
+    def renew(options)
+      attrs = {
+        receipt: receipt,
+        in_app: false,
+        quantity: quantity,
+        product_id: product_id,
+        original_transaction_id: transaction_id,
+        original_purchase_date: purchase_date,
+        is_trial_period: is_trial_period
+      }.merge(options)
+      receipt.transactions.create attrs
+    end
+
+    def as_json
       super.merge(
-        'web_order_line_item_id' => web_order_line_item_id.to_s,
-        'is_trial_period' => is_trial_period
+        'web_order_line_item_id' => web_order_line_item_id.to_s
       ).merge(date_attrs('expires', expires_date))
     end
   end
