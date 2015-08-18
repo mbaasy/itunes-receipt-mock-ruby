@@ -1,3 +1,4 @@
+require 'json'
 require 'base64'
 require 'itunes_receipt_mock/mixins'
 require 'itunes_receipt_mock/transaction_proxy'
