@@ -43,10 +43,16 @@ module ItunesReceiptMock
           'latest_receipt_info' => transactions.latest_receipt_info
         )
         result.merge!(
-          'latest_receipt' => Base64.strict_encode64(result.to_json)
+          'latest_receipt' => Base64.strict_encode64(
+            JSON.generate(result.as_json)
+          )
         )
       end
       result
+    end
+
+    def to_json
+      JSON.generate(as_json)
     end
 
     private
