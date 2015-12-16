@@ -35,7 +35,7 @@ module ItunesReceiptMock
     def as_json
       super.merge(
         'web_order_line_item_id' => web_order_line_item_id.to_s
-      ).merge(date_attrs('expires', expires_date))
+      ).merge(expires_date_attrs(expires_date))
     end
   end
 end
