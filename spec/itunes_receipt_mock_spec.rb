@@ -301,6 +301,24 @@ describe ItunesReceiptMock do
       end
     end
 
+    shared_examples 'expires a date' do
+      it 'displays the date as a ms timestamp' do
+        expect(json['expires_date'])
+          .to eq(date.utc.strftime('%s%L'))
+      end
+
+      it 'displays the date as a ms timestamp' do
+        expect(json['expires_date_formatted'])
+          .to eq(date.utc.strftime('%F %T') + ' Etc/GMT')
+      end
+
+      it 'displays the date in PST' do
+        expect(json['expires_date_formatted_pst'])
+          .to eq(date.getlocal('-08:00').strftime('%F %T') +
+                 ' America/Los_Angeles')
+      end
+    end
+
     shared_examples 'a purchase json object' do
       it 'contains all the details for a purchase' do
         expect(json['product_id']).to eq(obj.product_id)
@@ -333,8 +351,7 @@ describe ItunesReceiptMock do
 
       describe 'expires date' do
         let(:date) { obj.expires_date }
-        let(:prefix) { 'expires' }
-        it_behaves_like 'a date'
+        it_behaves_like 'expires a date'
       end
     end
 

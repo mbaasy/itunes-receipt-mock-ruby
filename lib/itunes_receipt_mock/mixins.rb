@@ -20,5 +20,15 @@ module ItunesReceiptMock
           .strftime('%F %T') + ' America/Los_Angeles'
       }
     end
+
+    def expires_date_attrs(date)
+      {
+        'expires_date' => date.to_time.utc.strftime('%s%L'),
+        'expires_date_formatted' => date.to_time.utc
+          .strftime('%F %T') + ' Etc/GMT',
+        'expires_date_formatted_pst' => date.to_time.getlocal('-08:00')
+          .strftime('%F %T') + ' America/Los_Angeles'
+      }
+    end
   end
 end
